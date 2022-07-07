@@ -1,0 +1,8 @@
+{
+  "engine": "cocos-creator-js",
+  "packages": "packages",
+  "name": "DynamicAtlasPlus",
+  "id": "ac4e01eb-f4ce-4d8c-86f0-c10d85aa4da4",
+  "version": "2.4.5",
+  "isNew": false
+}
