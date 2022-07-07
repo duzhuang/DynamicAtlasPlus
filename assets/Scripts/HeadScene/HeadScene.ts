@@ -6,7 +6,7 @@ import HeadPanel from "./HeadPanel";
  * @Author: 1148299682@qq.com
  * @Date: 2022-07-06 20:17:48
  * @LastEditors: 1148299682@qq.com
- * @LastEditTime: 2022-07-07 13:42:17
+ * @LastEditTime: 2022-07-07 15:06:51
  */
 const { ccclass, property } = cc._decorator;
 
@@ -20,11 +20,11 @@ export default class HeadScene extends cc.Component {
     HeadPanel: cc.Prefab = null;
 
     private _userList = [
-        // {
-        //     "uid": "45967870",
-        //     "avatarUrl": "https://qiniustatic.wodidashi.com/picture/k0QTYkPfj2ob7?imageView/2/w/200/h/200",
-        //     "name": "abㄭdef",
-        // }
+        {
+            "uid": "45967870",
+            "avatarUrl": "https://qiniustatic.wodidashi.com/picture/k0QTYkPfj2ob7?imageView/2/w/200/h/200",
+            "name": "abㄭdef",
+        }
         // , {
         //     "uid": "121078219",
         //     "avatarUrl": "https://qiniustatic.wodidashi.com/picture/B7WvxMDv9gMLN?imageView/2/w/200/h/200",

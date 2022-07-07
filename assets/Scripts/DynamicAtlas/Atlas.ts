@@ -2,7 +2,7 @@
  * @Author: 1148299682@qq.com
  * @Date: 2022-07-06 20:20:09
  * @LastEditors: 1148299682@qq.com
- * @LastEditTime: 2022-07-06 20:33:00
+ * @LastEditTime: 2022-07-07 14:45:01
  */
 /**
  * 图集的类
@@ -24,8 +24,9 @@ export default class Atlas {
    * 构造函数
    * @param width 宽
    * @param height 高
+   * @param name 图集的名字
    */
-    constructor(width: number, height: number) {
+    constructor(width: number, height: number, name?: string) {
         let texture = new cc.RenderTexture();
         texture.initWithSize(width, height);
         this._texture = texture;
@@ -37,6 +38,7 @@ export default class Atlas {
         this._height = height;
         this._innerTextureInfos = {};
         this._count = 0;
+        texture._name = name; 
     }
 
     /**

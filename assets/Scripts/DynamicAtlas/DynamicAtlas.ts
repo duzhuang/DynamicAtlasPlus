@@ -2,7 +2,7 @@
  * @Author: 1148299682@qq.com
  * @Date: 2022-07-06 20:20:18
  * @LastEditors: 1148299682@qq.com
- * @LastEditTime: 2022-07-07 12:21:26
+ * @LastEditTime: 2022-07-07 16:52:25
  */
 
 import Atlas from "./Atlas";
@@ -89,10 +89,24 @@ export default class DynamicAtlas {
     public insertSpriteFrame(spriteFrame: cc.SpriteFrame, comp: any, atlasNumber: number = 0) {
         //@ts-ignore
         if (!DynamicAtlas._isEnable || DynamicAtlas._atlasMap.size === DynamicAtlas._maxAtlasCount || !spriteFrame) return null;
-        //@ts-ignore
-        if (!spriteFrame._texture.packable) return null;
 
         let atlasName = atlasNumber + "";
+        //@ts-ignore
+        if (!spriteFrame._texture.packable) {
+            //如果图片参与过合图则特殊处理
+            let textureName: string = spriteFrame._texture._name;
+            let isAlreadyInAtlas = DynamicAtlas._atlasMap.get(textureName);
+            //如果不在当前需要合图的大图里，则再次进行合图
+            if (isAlreadyInAtlas != undefined && textureName != atlasName) {
+                spriteFrame._texture = spriteFrame._original._texture;
+                spriteFrame.uv = [0, 1, 1, 1, 0, 0, 1, 0];
+                spriteFrame._rect.x = 0;
+                spriteFrame._rect.y = 0;                
+            } else {
+                return null;
+            }
+        }
+
         let atlas: Atlas = DynamicAtlas._atlasMap.get(atlasName);
         if (!atlas) {
             atlas = DynamicAtlas.initAtlas(atlasName);
@@ -173,7 +187,7 @@ export default class DynamicAtlas {
     private static initAtlas(atlasName: string) {
         let atlas: Atlas = DynamicAtlas._atlasMap.get(atlasName);
         if (!atlas) {
-            atlas = new Atlas(DynamicAtlas._textureSize, DynamicAtlas._textureSize);
+            atlas = new Atlas(DynamicAtlas._textureSize, DynamicAtlas._textureSize, atlasName);
             DynamicAtlas._atlasMap.set(atlasName, atlas);
         }
         return atlas;
@@ -188,7 +202,7 @@ export default class DynamicAtlas {
         if (!spriteFrame || !comp) return;
         let _flagId: string = null;
         if (comp instanceof cc.Label) {
-            _flagId = comp.string + "_" + comp.node.color + "_" + comp.fontSize + "_" + comp.fontFamily;
+            _flagId = comp.string + "_" + comp.node.color + "_" + comp.fontSize + "_" + comp.fontFamily + "_" + comp.enableBold + "_" + comp.enableItalic + "_" + comp.enableUnderline;
         } else if (comp instanceof cc.Sprite) {
             //@ts-ignore
             if (spriteFrame._texture._uuid != "") {
@@ -201,5 +215,4 @@ export default class DynamicAtlas {
         //@ts-ignore
         spriteFrame._texture._flagId = _flagId;
     }
-
 }

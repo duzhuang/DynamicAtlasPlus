@@ -429,7 +429,7 @@
       "__id__": 6
     },
     "_enabled": true,
-    "atlasName": "",
+    "atlasName": 0,
     "_id": "02DaRQqEJBYrMZjQNABXEu"
   },
   {
@@ -521,7 +521,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 4,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -538,7 +538,7 @@
       "__id__": 9
     },
     "_enabled": true,
-    "atlasName": "",
+    "atlasName": 0,
     "_id": "84EulFypJMerWDcHFinuWW"
   },
   {
@@ -630,7 +630,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 4,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -647,7 +647,7 @@
       "__id__": 12
     },
     "_enabled": true,
-    "atlasName": "",
+    "atlasName": 0,
     "_id": "23qpYmRaNBTqMT7eCGQLyR"
   },
   {
@@ -678,7 +678,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 44.49,
+      "width": 52.9922624567956,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -690,7 +690,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -88.77499999999998,
+        -84.52386877160218,
         20.000000000000004,
         0,
         0,
@@ -739,7 +739,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 2,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -756,7 +756,7 @@
       "__id__": 15
     },
     "_enabled": true,
-    "atlasName": "",
+    "atlasName": 0,
     "_id": "437CGgN7dCZKXUkc+5q+1v"
   },
   {
@@ -787,7 +787,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 44.49,
+      "width": 52.9922624567956,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -799,7 +799,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -24.284999999999968,
+        -11.53160631480658,
         20.000000000000004,
         0,
         0,
@@ -848,7 +848,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 2,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -865,7 +865,7 @@
       "__id__": 18
     },
     "_enabled": true,
-    "atlasName": "",
+    "atlasName": 0,
     "_id": "30S9YLh1NK9IrA+pTuTZIK"
   },
   {
@@ -908,7 +908,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        40.205000000000034,
+        57.209524913591224,
         20.000000000000004,
         0,
         0,
@@ -957,7 +957,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -974,7 +974,7 @@
       "__id__": 21
     },
     "_enabled": true,
-    "atlasName": "",
+    "atlasName": 0,
     "_id": "90+4K/jjFAmqtu9/kiCe1A"
   },
   {
@@ -1005,7 +1005,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 21.5,
+      "width": 26.64,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1017,7 +1017,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        93.20000000000003,
+        112.77452491359122,
         20.000000000000004,
         0,
         0,
@@ -1066,7 +1066,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -1126,8 +1126,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        209.57500000000005,
-        25.200000000000003,
+        -214.375,
+        -25.200000000000003,
         0,
         0,
         0,
@@ -1237,7 +1237,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -236.875,
+        -45.625,
         -25.200000000000003,
         0,
         0,
@@ -1305,7 +1305,7 @@
       "__id__": 30
     },
     "_enabled": true,
-    "atlasName": "",
+    "atlasName": 0,
     "_id": "4em2K3JKZKy7tJ7wVrp2xA"
   },
   {
