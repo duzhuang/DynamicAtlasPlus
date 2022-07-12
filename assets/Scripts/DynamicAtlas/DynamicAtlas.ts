@@ -2,7 +2,7 @@
  * @Author: 1148299682@qq.com
  * @Date: 2022-07-06 20:20:18
  * @LastEditors: 1148299682@qq.com
- * @LastEditTime: 2022-07-12 11:07:49
+ * @LastEditTime: 2022-07-12 16:00:48
  */
 
 import Atlas from "./Atlas";
@@ -152,29 +152,37 @@ export default class DynamicAtlas {
      */
     public showDebug(show: boolean) {
         if (show) {
-            let width = cc.visibleRect.width;
-            let height = cc.visibleRect.height;
-            DynamicAtlas._debugNode = new cc.Node('DYNAMIC_ATLAS_DEBUG_NODE');
-            DynamicAtlas._debugNode.width = width;
-            DynamicAtlas._debugNode.height = height;
-            DynamicAtlas._debugNode.x = width / 2;
-            DynamicAtlas._debugNode.y = height / 2;
-            DynamicAtlas._debugNode.zIndex = cc.macro.MAX_ZINDEX;
-            DynamicAtlas._debugNode.parent = cc.director.getScene();
-            DynamicAtlas._debugNode.scale = 0.5;
-
-            let scroll = DynamicAtlas._debugNode.addComponent(cc.ScrollView);
-            let content = new cc.Node('CONTENT');
-            let layout = content.addComponent(cc.Layout);
-            layout.type = cc.Layout.Type.VERTICAL;
-            layout.resizeMode = cc.Layout.ResizeMode.CONTAINER;
-            content.parent = DynamicAtlas._debugNode;
-            content.width = DynamicAtlas._textureSize;
-            content.anchorY = 1;
-            content.x = DynamicAtlas._textureSize;
-            scroll.content = content;
+            let contentNode: cc.Node = null;
+            if(!DynamicAtlas._debugNode || !DynamicAtlas._debugNode){
+                let width = cc.visibleRect.width;
+                let height = cc.visibleRect.height;
+                DynamicAtlas._debugNode = new cc.Node('DYNAMIC_ATLAS_DEBUG_NODE');
+                DynamicAtlas._debugNode.width = width;
+                DynamicAtlas._debugNode.height = height;
+                DynamicAtlas._debugNode.x = width / 2;
+                DynamicAtlas._debugNode.y = height / 2;
+                DynamicAtlas._debugNode.zIndex = cc.macro.MAX_ZINDEX;
+                DynamicAtlas._debugNode.parent = cc.director.getScene();
+                DynamicAtlas._debugNode.scale = 0.5;
+    
+                let scroll = DynamicAtlas._debugNode.addComponent(cc.ScrollView);
+                contentNode = new cc.Node('CONTENT');
+                let layout = contentNode.addComponent(cc.Layout);
+                layout.type = cc.Layout.Type.VERTICAL;
+                layout.resizeMode = cc.Layout.ResizeMode.CONTAINER;
+                contentNode.parent = DynamicAtlas._debugNode;
+                contentNode.width = DynamicAtlas._textureSize;
+                contentNode.anchorY = 1;
+                contentNode.x = DynamicAtlas._textureSize;
+                scroll.content = contentNode;
+            }else{
+                contentNode = DynamicAtlas._debugNode.getChildByName("CONTENT");
+            }
+                    
+            for (let i = 0; i < contentNode.childrenCount; i++) {                
+                contentNode.children[i].destroy();
+            }
             
-            content.removeAllChildren();
             DynamicAtlas._atlasMap.forEach((atlas: Atlas, atlasName: string) => {
                 let node = new cc.Node('ATLAS');
                 let spriteFrame = new cc.SpriteFrame();
@@ -183,7 +191,7 @@ export default class DynamicAtlas {
                 let sprite = node.addComponent(cc.Sprite);
                 sprite.spriteFrame = spriteFrame;
                 node.name = atlasName;
-                node.parent = content;
+                node.parent = contentNode;
             })
             return DynamicAtlas._debugNode;
         } else {
@@ -229,8 +237,7 @@ export default class DynamicAtlas {
         } else {
             //@ts-ignore
             _flagId = spriteFrame._texture._flagId;
-        }
-        console.log("-->这是加载图片的flagId",_flagId);
+        }        
         //@ts-ignore
         spriteFrame._texture._flagId = _flagId;
     }

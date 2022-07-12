@@ -2,34 +2,39 @@
  * @Author: 1148299682@qq.com
  * @Date: 2022-07-07 10:05:24
  * @LastEditors: 1148299682@qq.com
- * @LastEditTime: 2022-07-11 20:20:30
+ * @LastEditTime: 2022-07-12 11:54:35
  */
 
 import DynamicAtlas from "../DynamicAtlas/DynamicAtlas";
 
-const {ccclass, property} = cc._decorator;
-cc.macro.CLEANUP_IMAGE_CACHE = false;
+const { ccclass, property } = cc._decorator;
+
 @ccclass
 export default class SpriteScene extends cc.Component {
 
-    @property({type:cc.Node,tooltip:''})
-    secondPanel:cc.Node = null;
+    @property({ type: cc.Node, tooltip: '' })
+    dynamicPanel: cc.Node = null;
 
-    protected onLoad(): void {
+    @property({ type: cc.Node, tooltip: '' })
+    cocosPanel: cc.Node = null;
 
-        cc.dynamicAtlasManager.enabled = false;
-        DynamicAtlas.getInstance();       
+    protected onLoad(): void {      
+        cc.dynamicAtlasManager.enabled = false;   
     }
 
-    onClickShowSecond(){
-        this.secondPanel.active = true;
-        this.scheduleOnce(_=>{
+    onClickCocos() {       
+        cc.dynamicAtlasManager.enabled = true;   
+        this.cocosPanel.active = true;
+        this.scheduleOnce(_ => {
+            cc.dynamicAtlasManager.showDebug(true);
+        }, 1)
+    }
+
+    onClickDynamic() {
+        DynamicAtlas.getInstance();
+        this.dynamicPanel.active = true;
+        this.scheduleOnce(_ => {
             DynamicAtlas.getInstance().showDebug(true);
-        },0)
-    }
-
-    onClickMask() {
-        this.secondPanel.active = false;    
-        DynamicAtlas.getInstance().deleteSpriteFrame("level2");    
+        }, 1)
     }
 }

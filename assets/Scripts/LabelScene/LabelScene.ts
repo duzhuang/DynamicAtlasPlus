@@ -2,7 +2,7 @@
  * @Author: 1148299682@qq.com
  * @Date: 2022-07-07 10:03:55
  * @LastEditors: 1148299682@qq.com
- * @LastEditTime: 2022-07-07 10:04:11
+ * @LastEditTime: 2022-07-12 12:01:06
  */
 
 import DynamicAtlas from "../DynamicAtlas/DynamicAtlas";
@@ -11,11 +11,31 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class LabelScene extends cc.Component {
+
+    @property({ type: cc.Node, tooltip: '' })
+    dynamicPanel: cc.Node = null;
+
+    @property({ type: cc.Node, tooltip: '' })
+    cocosPanel: cc.Node = null;
+
+    
     protected onLoad(): void {
         cc.dynamicAtlasManager.enabled = false;
+    }
+
+    onClickCocos() {       
+        cc.dynamicAtlasManager.enabled = true;   
+        this.cocosPanel.active = true;
+        this.scheduleOnce(_ => {
+            cc.dynamicAtlasManager.showDebug(true);
+        }, 1)
+    }
+
+    onClickDynamic() {
         DynamicAtlas.getInstance();
-        this.scheduleOnce(_=>{
+        this.dynamicPanel.active = true;
+        this.scheduleOnce(_ => {
             DynamicAtlas.getInstance().showDebug(true);
-        },0)
+        }, 1)
     }
 }
