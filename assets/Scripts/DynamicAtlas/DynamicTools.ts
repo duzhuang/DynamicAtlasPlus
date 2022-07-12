@@ -2,7 +2,7 @@
  * @Author: 1148299682@qq.com
  * @Date: 2022-07-06 21:08:32
  * @LastEditors: 1148299682@qq.com
- * @LastEditTime: 2022-07-07 12:22:29
+ * @LastEditTime: 2022-07-12 11:02:08
  */
 
 export const DynamicName = cc.Enum({
@@ -26,4 +26,5 @@ export default class DynamicTools extends cc.Component {
     onLoad() {
         DynamicTools._atlasName = this.atlasName;
     }
+
 }

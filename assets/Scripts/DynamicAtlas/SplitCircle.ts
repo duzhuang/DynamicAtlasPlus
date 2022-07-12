@@ -2,28 +2,28 @@
  * @Author: 1148299682@qq.com
  * @Date: 2022-07-07 11:01:51
  * @LastEditors: 1148299682@qq.com
- * @LastEditTime: 2022-07-07 11:33:07
+ * @LastEditTime: 2022-07-12 10:53:27
  */
 export default class SplitCircle {
     /**画布 */
     private static _canvas = null;
 
-    public static getCircleHeadTexture(headTexture: cc.Texture2D) {
+    public static getCircleHeadTexture(headTexture: cc.Texture2D,nativeUrl:string) {
         let originalPixels = this._getOriginalPixels(headTexture);
         let rgbaList = this._formateOriginalPixelsRGBA(originalPixels);
         let circlePixelsData = this._getCirclePixelsData(rgbaList, headTexture.width, headTexture.height);
         let resultTexturePixelsData = this._formateToUint8Array(circlePixelsData);
-        let url = this.toImageUrl(headTexture.width, headTexture.height, resultTexturePixelsData);
+        let url = this.toImageUrl(headTexture.width, headTexture.height, resultTexturePixelsData,nativeUrl);
         return url;
     }
 
     /**
    * 生成图片链接
    */
-    private static toImageUrl(width, height, pixelData) {
+    private static toImageUrl(width, height, pixelData,nativeUrl) {
         var width = width, height = height, url: string;
         if (cc.sys.isNative) {
-            let data = pixelData, filePath = jsb.fileUtils.getWritablePath() + 'tmpImg.png';
+            let data = pixelData, filePath = jsb.fileUtils.getWritablePath() + `${nativeUrl}.png`;
             jsb['saveImageData'](data, width, height, filePath);
             url = filePath;
         }

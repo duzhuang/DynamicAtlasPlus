@@ -6,7 +6,7 @@ import HeadPanel from "./HeadPanel";
  * @Author: 1148299682@qq.com
  * @Date: 2022-07-06 20:17:48
  * @LastEditors: 1148299682@qq.com
- * @LastEditTime: 2022-07-07 15:06:51
+ * @LastEditTime: 2022-07-12 10:17:23
  */
 const { ccclass, property } = cc._decorator;
 
@@ -25,27 +25,29 @@ export default class HeadScene extends cc.Component {
             "avatarUrl": "https://qiniustatic.wodidashi.com/picture/k0QTYkPfj2ob7?imageView/2/w/200/h/200",
             "name": "abㄭdef",
         }
-        // , {
-        //     "uid": "121078219",
-        //     "avatarUrl": "https://qiniustatic.wodidashi.com/picture/B7WvxMDv9gMLN?imageView/2/w/200/h/200",
-        //     "name": "一修测试",
-        // }, {
-        //     "uid": "30971516",
-        //     "avatarUrl": "https://qiniustatic.wodidashi.com/picture/Zq3ELkbbh6RE8?imageView/2/w/200/h/200",
-        //     "name": "小明",
-        // }, {
-        //     "uid": "107429611",
-        //     "avatarUrl": "https://qiniustatic.wodidashi.com/user/icon/3_3x.png?imageView/2/w/200/h/200",
-        //     "name": "002",
-        // }, {
-        //     "uid": "107112886",
-        //     "avatarUrl": "https://qiniustatic.wodidashi.com/picture/JfmjRYIWm2bDA?imageView/2/w/200/h/200",
-        //     "name": "0113",
-        // }, {
-        //     "uid": "106288727",
-        //     "avatarUrl": "https://qiniustatic.wodidashi.com/user/icon/1_3x.png?imageView/2/w/200/h/200",
-        //     "name": "玩吧用户3872",
-        // }, {
+        , {
+            "uid": "121078219",
+            "avatarUrl": "https://qiniustatic.wodidashi.com/picture/B7WvxMDv9gMLN?imageView/2/w/200/h/200",        
+            "name": "一修测试",
+        },
+        {
+            "uid": "30971516",
+            "avatarUrl": "https://qiniustatic.wodidashi.com/picture/Zq3ELkbbh6RE8?imageView/2/w/200/h/200",
+            "name": "小明",
+        }, {
+            "uid": "107429611",
+            "avatarUrl": "https://qiniustatic.wodidashi.com/user/icon/3_3x.png?imageView/2/w/200/h/200",
+            "name": "002",
+        }, {
+            "uid": "107112886",
+            "avatarUrl": "https://qiniustatic.wodidashi.com/picture/JfmjRYIWm2bDA?imageView/2/w/200/h/200",
+            "name": "0113",
+        }, {
+            "uid": "106288727",
+            "avatarUrl": "https://qiniustatic.wodidashi.com/user/icon/1_3x.png?imageView/2/w/200/h/200",
+            "name": "玩吧用户3872",
+        },
+        // {
         //     "uid": "26331199",
         //     "avatarUrl": "https://qiniustatic.wodidashi.com/head/uYQ4f5Z5AHFKY?imageView/2/w/200/h/200",
         //     "name": "11045",

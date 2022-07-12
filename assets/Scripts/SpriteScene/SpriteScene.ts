@@ -2,13 +2,13 @@
  * @Author: 1148299682@qq.com
  * @Date: 2022-07-07 10:05:24
  * @LastEditors: 1148299682@qq.com
- * @LastEditTime: 2022-07-07 10:28:04
+ * @LastEditTime: 2022-07-11 20:20:30
  */
 
 import DynamicAtlas from "../DynamicAtlas/DynamicAtlas";
 
 const {ccclass, property} = cc._decorator;
-
+cc.macro.CLEANUP_IMAGE_CACHE = false;
 @ccclass
 export default class SpriteScene extends cc.Component {
 
@@ -16,6 +16,7 @@ export default class SpriteScene extends cc.Component {
     secondPanel:cc.Node = null;
 
     protected onLoad(): void {
+
         cc.dynamicAtlasManager.enabled = false;
         DynamicAtlas.getInstance();       
     }

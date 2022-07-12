@@ -2,7 +2,7 @@
  * @Author: 1148299682@qq.com
  * @Date: 2022-07-06 20:20:18
  * @LastEditors: 1148299682@qq.com
- * @LastEditTime: 2022-07-07 16:52:25
+ * @LastEditTime: 2022-07-12 11:07:49
  */
 
 import Atlas from "./Atlas";
@@ -26,6 +26,7 @@ export default class DynamicAtlas {
     }
 
     init() {
+        if (this._isInit) return;
         let assembler2D = new cc.Assembler2D();
         //@ts-ignore        
         let assembler = assembler2D.__proto__;
@@ -94,14 +95,20 @@ export default class DynamicAtlas {
         //@ts-ignore
         if (!spriteFrame._texture.packable) {
             //如果图片参与过合图则特殊处理
+            //@ts-ignore
             let textureName: string = spriteFrame._texture._name;
             let isAlreadyInAtlas = DynamicAtlas._atlasMap.get(textureName);
-            //如果不在当前需要合图的大图里，则再次进行合图
-            if (isAlreadyInAtlas != undefined && textureName != atlasName) {
+            //如果不在当前需要合图的大图里，则再次进行合图 || 如果uv已经销毁需要再次合图
+            //@ts-ignore
+            if ((isAlreadyInAtlas != undefined && textureName != atlasName) || (spriteFrame._texture != spriteFrame._original._texture && textureName == "")) {
+                //@ts-ignore
                 spriteFrame._texture = spriteFrame._original._texture;
+                //@ts-ignore
                 spriteFrame.uv = [0, 1, 1, 1, 0, 0, 1, 0];
+                //@ts-ignore
                 spriteFrame._rect.x = 0;
-                spriteFrame._rect.y = 0;                
+                //@ts-ignore
+                spriteFrame._rect.y = 0;
             } else {
                 return null;
             }
@@ -112,7 +119,7 @@ export default class DynamicAtlas {
             atlas = DynamicAtlas.initAtlas(atlasName);
         }
         this.generateFlagId(spriteFrame, comp);
-        let frame = atlas.insertSpriteFrame(spriteFrame);
+        let frame = atlas.insertSpriteFrame(spriteFrame);       
         return frame;
     }
 
@@ -121,6 +128,18 @@ export default class DynamicAtlas {
      * @param spriteFrame uv
      */
     public deleteSpriteFrame(atlasName: string = "default") {
+        let debugNode = cc.director.getScene().getChildByName("DYNAMIC_ATLAS_DEBUG_NODE");
+        if (debugNode || debugNode.isValid) {
+            let content = DynamicAtlas._debugNode.getComponent(cc.ScrollView).content;
+            for (let i = 0; i < content.childrenCount; i++) {
+                let atlasNode: cc.Node = content.children[i];
+                if (atlasNode.name == atlasName) {
+                    atlasNode.destroy();
+                }
+            }
+            content.getComponent(cc.Layout).updateLayout();
+        }
+
         let atlas: Atlas = DynamicAtlas._atlasMap.get(atlasName);
         if (!atlas) return;
         atlas.destroy();
@@ -133,41 +152,39 @@ export default class DynamicAtlas {
      */
     public showDebug(show: boolean) {
         if (show) {
-            if (!DynamicAtlas._debugNode || !DynamicAtlas._debugNode.isValid) {
-                let width = cc.visibleRect.width;
-                let height = cc.visibleRect.height;
+            let width = cc.visibleRect.width;
+            let height = cc.visibleRect.height;
+            DynamicAtlas._debugNode = new cc.Node('DYNAMIC_ATLAS_DEBUG_NODE');
+            DynamicAtlas._debugNode.width = width;
+            DynamicAtlas._debugNode.height = height;
+            DynamicAtlas._debugNode.x = width / 2;
+            DynamicAtlas._debugNode.y = height / 2;
+            DynamicAtlas._debugNode.zIndex = cc.macro.MAX_ZINDEX;
+            DynamicAtlas._debugNode.parent = cc.director.getScene();
+            DynamicAtlas._debugNode.scale = 0.5;
 
-                DynamicAtlas._debugNode = new cc.Node('DYNAMIC_ATLAS_DEBUG_NODE');
-                DynamicAtlas._debugNode.width = width;
-                DynamicAtlas._debugNode.height = height;
-                DynamicAtlas._debugNode.x = width / 2;
-                DynamicAtlas._debugNode.y = height / 2;
-                DynamicAtlas._debugNode.zIndex = cc.macro.MAX_ZINDEX;
-                DynamicAtlas._debugNode.parent = cc.director.getScene();
-                DynamicAtlas._debugNode.scale = 0.5;
-
-                let scroll = DynamicAtlas._debugNode.addComponent(cc.ScrollView);
-                let content = new cc.Node('CONTENT');
-                let layout = content.addComponent(cc.Layout);
-                layout.type = cc.Layout.Type.VERTICAL;
-                layout.resizeMode = cc.Layout.ResizeMode.CONTAINER;
-                content.parent = DynamicAtlas._debugNode;
-                content.width = DynamicAtlas._textureSize;
-                content.anchorY = 1;
-                content.x = DynamicAtlas._textureSize;
-
-                scroll.content = content;
-
-                DynamicAtlas._atlasMap.forEach((atlas: Atlas, atlasName: string) => {
-                    let node = new cc.Node('ATLAS');
-                    let spriteFrame = new cc.SpriteFrame();
-                    //@ts-ignore
-                    spriteFrame.setTexture(atlas._texture);
-                    let sprite = node.addComponent(cc.Sprite);
-                    sprite.spriteFrame = spriteFrame;
-                    node.parent = content;
-                })
-            }
+            let scroll = DynamicAtlas._debugNode.addComponent(cc.ScrollView);
+            let content = new cc.Node('CONTENT');
+            let layout = content.addComponent(cc.Layout);
+            layout.type = cc.Layout.Type.VERTICAL;
+            layout.resizeMode = cc.Layout.ResizeMode.CONTAINER;
+            content.parent = DynamicAtlas._debugNode;
+            content.width = DynamicAtlas._textureSize;
+            content.anchorY = 1;
+            content.x = DynamicAtlas._textureSize;
+            scroll.content = content;
+            
+            content.removeAllChildren();
+            DynamicAtlas._atlasMap.forEach((atlas: Atlas, atlasName: string) => {
+                let node = new cc.Node('ATLAS');
+                let spriteFrame = new cc.SpriteFrame();
+                //@ts-ignore
+                spriteFrame.setTexture(atlas._texture);
+                let sprite = node.addComponent(cc.Sprite);
+                sprite.spriteFrame = spriteFrame;
+                node.name = atlasName;
+                node.parent = content;
+            })
             return DynamicAtlas._debugNode;
         } else {
             if (DynamicAtlas._debugNode) {
@@ -201,17 +218,19 @@ export default class DynamicAtlas {
     private generateFlagId(spriteFrame: cc.SpriteFrame, comp: any) {
         if (!spriteFrame || !comp) return;
         let _flagId: string = null;
-        if (comp instanceof cc.Label) {
-            _flagId = comp.string + "_" + comp.node.color + "_" + comp.fontSize + "_" + comp.fontFamily + "_" + comp.enableBold + "_" + comp.enableItalic + "_" + comp.enableUnderline;
-        } else if (comp instanceof cc.Sprite) {
-            //@ts-ignore
-            if (spriteFrame._texture._uuid != "") {
+        //@ts-ignore
+        if (!spriteFrame._texture._flagId) {
+            if (comp instanceof cc.Label) {
+                _flagId = comp.string + "_" + comp.node.color + "_" + comp.fontSize + "_" + comp.fontFamily + "_" + comp.enableBold + "_" + comp.enableItalic + "_" + comp.enableUnderline;
+            } else if (comp instanceof cc.Sprite) {
                 //@ts-ignore
                 _flagId = spriteFrame._texture._uuid;
-            } else {
-                //TODO
             }
+        } else {
+            //@ts-ignore
+            _flagId = spriteFrame._texture._flagId;
         }
+        console.log("-->这是加载图片的flagId",_flagId);
         //@ts-ignore
         spriteFrame._texture._flagId = _flagId;
     }
