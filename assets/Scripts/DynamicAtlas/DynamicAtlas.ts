@@ -2,7 +2,7 @@
  * @Author: 1148299682@qq.com
  * @Date: 2022-07-06 20:20:18
  * @LastEditors: 1148299682@qq.com
- * @LastEditTime: 2022-07-12 16:00:48
+ * @LastEditTime: 2022-07-12 17:58:47
  */
 
 import Atlas from "./Atlas";
@@ -237,7 +237,7 @@ export default class DynamicAtlas {
         } else {
             //@ts-ignore
             _flagId = spriteFrame._texture._flagId;
-        }        
+        }    
         //@ts-ignore
         spriteFrame._texture._flagId = _flagId;
     }

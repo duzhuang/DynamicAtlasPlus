@@ -2,7 +2,7 @@
  * @Author: 1148299682@qq.com
  * @Date: 2022-07-06 20:20:09
  * @LastEditors: 1148299682@qq.com
- * @LastEditTime: 2022-07-12 10:58:31
+ * @LastEditTime: 2022-07-12 16:42:23
  */
 /**
  * 图集的类
@@ -17,8 +17,6 @@ export default class Atlas {
     private _width = null;
     private _height = null;
     private _innerTextureInfos = null;
-    private _count = null;
-    private _dirty = null;
 
     /**
    * 构造函数
@@ -30,6 +28,7 @@ export default class Atlas {
         let texture = new cc.RenderTexture();
         texture.initWithSize(width, height);                
         this._texture = texture;
+        //@ts-ignore
         texture.update();
         this._x = space;
         this._y = space;
@@ -37,7 +36,7 @@ export default class Atlas {
         this._width = width;
         this._height = height;
         this._innerTextureInfos = {};
-        this._count = 0;
+         //@ts-ignore
         texture._name = name;
     }
 
@@ -47,7 +46,9 @@ export default class Atlas {
      * @returns 
      */
     public insertSpriteFrame(spriteFrame: cc.SpriteFrame) {
+         //@ts-ignore
         let rect = spriteFrame._rect;
+         //@ts-ignore
         let texture = spriteFrame._texture;
         //查询spriteFrame是否已经被缓存
         let info = this._innerTextureInfos[texture._flagId];
@@ -77,18 +78,25 @@ export default class Atlas {
             if (cc.dynamicAtlasManager.textureBleeding) {
                 // Smaller frame is more likely to be affected by linear filter
                 if (width <= 8 || height <= 8) {
+                     //@ts-ignore
                     this._texture.drawTextureAt(texture, this._x - 1, this._y - 1);
+                     //@ts-ignore
                     this._texture.drawTextureAt(texture, this._x - 1, this._y + 1);
+                     //@ts-ignore
                     this._texture.drawTextureAt(texture, this._x + 1, this._y - 1);
+                     //@ts-ignore
                     this._texture.drawTextureAt(texture, this._x + 1, this._y + 1);
                 }
-
+                 //@ts-ignore
                 this._texture.drawTextureAt(texture, this._x - 1, this._y);
+                 //@ts-ignore
                 this._texture.drawTextureAt(texture, this._x + 1, this._y);
+                 //@ts-ignore
                 this._texture.drawTextureAt(texture, this._x, this._y - 1);
+                 //@ts-ignore
                 this._texture.drawTextureAt(texture, this._x, this._y + 1);
             }
-
+            //@ts-ignore
             this._texture.drawTextureAt(texture, this._x, this._y);
 
             this._innerTextureInfos[texture._flagId] = {
@@ -96,15 +104,10 @@ export default class Atlas {
                 y: this._y,
                 texture: texture,
             };
-
-            this._count++;
-
             sx += this._x;
             sy += this._y;
 
-            this._x += width + space;
-
-            this._dirty = true;
+            this._x += width + space;            
         }
 
         let frame = {
